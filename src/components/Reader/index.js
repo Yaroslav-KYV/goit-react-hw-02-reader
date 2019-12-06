@@ -7,36 +7,26 @@ import { StyledReader, StyledControls } from '../Components.styled';
 
 export default class Reader extends Component {
   static propTypes = {
-    items: PropTypes.arrayOf(
-      PropTypes.shape({ title: PropTypes.string, text: PropTypes.string }),
-    ).isRequired,
+    items: PropTypes.arrayOf(PropTypes.objectOf(PropTypes.string)).isRequired,
   };
 
   state = {
     index: this.props.items.length / 2 - 1,
   };
 
-  ClickNext = () => {
+  clickNext = () => {
     this.setState(state => {
-      const { items } = this.props;
-      if (state.index < items.length) {
-        return {
-          index: state.index + 1,
-        };
-      }
-      return {};
+      return {
+        index: state.index + 1,
+      };
     });
   };
 
-  ClickPrev = () => {
+  clickPrev = () => {
     this.setState(state => {
-      const { items } = this.props;
-      if (state.index < items.length) {
-        return {
-          index: state.index - 1,
-        };
-      }
-      return {};
+      return {
+        index: state.index - 1,
+      };
     });
   };
 
@@ -48,12 +38,12 @@ export default class Reader extends Component {
       <StyledReader>
         <StyledControls>
           <Controls
-            clickBtn={this.ClickPrev}
+            clickBtn={this.clickPrev}
             name="Prev"
             disable={index === 0}
           />
           <Controls
-            clickBtn={this.ClickNext}
+            clickBtn={this.clickNext}
             name="Next"
             disable={items.length === index + 1}
           />
